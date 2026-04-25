@@ -1,0 +1,42 @@
+HOW APP TRACKING WORKS
+
+This document combines the simple explanation with the technical steps used in the background.
+
+1. BASIC LOGIC
+The app is built to record your usage even when it is closed. It uses native phone features (Android and iOS) to keep a "counter" running.
+
+2. ANDROID (Background Service)
+On Android, we use a constant background worker called a "Foreground Service." 
+- THE NOTIFICATION: Android requires a small icon in your top bar so you know the app is active.
+- THE HEARTBEAT: Every 1 second, the service checks which app is currently on your screen.
+- SAVING (SQLite): It saves this time into a permanent digital notebook inside your phone called an "SQLite Database."
+- RECOVERY: When you open the app, it instantly reads that notebook to show your usage history.
+
+3. APPLE iOS (Screen Time Tracking)
+iOS uses a much stricter system called the "Screen Time API."
+- THE EXTENSION: We use a "Monitor Extension." This is a small helper program that lives inside the phone's settings, separate from the main app.
+- THE TRIGGER: When you open an app you want to track, the iPhone automatically tells our "helper" to start counting.
+- SHARED FOLDER (App Groups): Because the helper and the main app are separate, they use a "Shared Folder" (App Group) to pass data back and forth.
+- DISPLAY: When you open the Have A Break app, it checks that Shared Folder to show you the recorded time.
+
+4. UNIFIED CROSS-PLATFORM SYSTEM
+The Flutter app is designed to handle both systems smoothly:
+- STEP 1: It detects if it is on Android or iOS.
+- STEP 2: It loads the saved files (from the SQLite database or the Shared Folder).
+- STEP 3: It adds the current "live" session time to those saved numbers.
+- STEP 4: it sorts the apps so the ones you use most appear at the top.
+
+5. REQUIREMENTS FOR SETUP
+If you are moving this code to a new app or device, remember:
+
+Android Needs:
+- "Usage Access" permission enabled in phone settings.
+- "Foreground Service" permission in the app files.
+
+iOS Needs:
+- A monitor "Target" added in Xcode settings.
+- An "App Group" ID registered in the Apple portal.
+- A paid Apple Developer account to unlock Screen Time features.
+
+6. BATTERY & PERFORMANCE
+- This app uses native systems built by Google and Apple. It is extremely battery-efficient and only "wakes up" for a split second to record changes.
