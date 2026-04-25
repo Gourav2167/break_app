@@ -1,16 +1,37 @@
-# have_a_break
+# have_a_break 🧘‍♂️
 
-A new Flutter project.
+A minimalist digital wellbeing application built with Flutter, focused on "Zen-inspired" app usage tracking and persistence.
 
-## Getting Started
+## ✨ Features
+- **Persistent Tracking**: Usage data survives app kills, restarts, and battery death.
+- **Cross-Platform Architecture**: 
+  - **Android**: Custom Kotlin Foreground Service with SQLite persistence.
+  - **iOS**: Screen Time API integration via DeviceActivityMonitorExtension.
+- **Real-time Updates**: Live dashboard counting without refresh or flicker.
+- **Minimalist Design**: Deep dark mode with high-contrast typography.
 
-This project is a starting point for a Flutter application.
+## 🚀 Setup & Installation
 
-A few resources to get you started if this is your first Flutter project:
+### Android
+1. **Build APK**: Run `flutter build apk --release`.
+2. **Permissions**: Once installed, grant **Usage Access** in Android Settings.
+3. **Optimizations**: For best results, disable battery optimization for the app to keep the foreground service active.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### iOS
+1. **Requirements**: Needs a paid Apple Developer account (for Screen Time API entitlements).
+2. **Capabilities**: Enable `Family Controls`, `Device Activity`, and `App Groups` in Xcode.
+3. **Extension**: Register the `DeviceActivityMonitorExtension` target and associate it with the shared App Group: `group.com.haveabreak.shared`.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🛠️ Tech Stack
+- **Framework**: Flutter
+- **State Management**: Riverpod 3.0
+- **Native Logic**: Kotlin (Android) / Swift (iOS)
+- **Database**: SQLite (Android) / UserDefaults App Groups (iOS)
+- **Backend (Optional)**: Supabase
+
+## 📖 How it Works
+For a detailed but simple explanation of the background tracking logic, see:
+- [APP_TRACKING_INFO.txt](./APP_TRACKING_INFO.txt)
+
+---
+*Created with focus on presence and digital balance.*
